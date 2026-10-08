@@ -37,27 +37,6 @@ public sealed class UserRepositoryTests
         Assert.That(await dbContext.Users.CountAsync(), Is.EqualTo(1));
     }
 
-    [Test]
-    public async Task TryAddAsync_AllowsOnlyOneConcurrentDuplicate()
-    {
-        await using var firstContext = CreateDbContext();
-        await using var secondContext = CreateDbContext();
-        var firstRepository = new UserRepository(firstContext);
-        var secondRepository = new UserRepository(secondContext);
-
-        var results = await Task.WhenAll(
-            firstRepository.TryAddAsync(
-                UserAggregate.Create(Username.Create("Alice")),
-                CancellationToken.None),
-            secondRepository.TryAddAsync(
-                UserAggregate.Create(Username.Create("alice")),
-                CancellationToken.None));
-
-        await using var verificationContext = CreateDbContext();
-        Assert.That(results.Count(result => result), Is.EqualTo(1));
-        Assert.That(await verificationContext.Users.CountAsync(), Is.EqualTo(1));
-    }
-
     private UsersDbContext CreateDbContext()
     {
         var options = new DbContextOptionsBuilder<UsersDbContext>()

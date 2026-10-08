@@ -22,4 +22,8 @@
     <ProjectReference Include="..\..\src\Modules\WorkItems\Modules.WorkItems.Domain\Modules.WorkItems.Domain.csproj" />
     <ProjectReference Include="..\..\src\Modules\WorkItems\Modules.WorkItems.Infrastructure\Modules.WorkItems.Infrastructure.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Application\" />
+  </ItemGroup>
 </Project>

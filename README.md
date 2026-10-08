@@ -1,84 +1,37 @@
-# JTL Take-Home Tasks
+# Senior Backend Engineer Assignment
 
-This repository holds the take-home tasks we use as one step in our hiring process.
-Each task is a small, self-contained problem meant to show how you structure and
-reason about real software. We care far more about clarity, structure, and judgment
-than about how many features you finish.
+An ASP.NET Core modular monolith for managing users and work items.
 
-## Which task should I do?
+## Modules
 
-Do **only** the task for the role you applied for. Your contact will tell you which
-one that is.
+- **Users**: creates users and retrieves user information.
+- **WorkItems**: creates work items and finds them by assignee.
 
-| Role | Folder | Focus |
-| --- | --- | --- |
-| Senior Software Engineer (Backend) | [`senior-backend-engineer/`](./senior-backend-engineer/instructions.md) | .NET modular monolith, DDD, CQRS |
-| Senior Software Engineer (Frontend) | [`senior-frontend-engineer/`](./senior-frontend-engineer/instructions.md) | React + TypeScript, Turborepo, TanStack |
-| Senior Software Engineer (Managed Services / DevOps) | [`senior-devops-engineer/`](./senior-devops-engineer/instructions.md) | Windows-to-Linux containerization, CI/CD |
+Each module owns its API, application logic, domain model, persistence, `DbContext`, and database schema. Modules communicate through public contracts instead of accessing each other's internals.
 
-Open the `instructions.md` in your folder. It has the full task, the requirements,
-and how we evaluate it.
+## Architecture
 
-## How it works
+Requests follow this flow:
 
-1. Create your own repository from this one (see **Submitting** below).
-2. Solve the task for your track in that repository.
-3. Write a short README explaining your key decisions and trade-offs.
-4. Add an `ai-journey/` folder documenting how you used AI (see **AI journey** below). This is required and evaluated.
-5. Share the link with your contact.
+`FastEndpoints -> MediatR -> Application handler -> Domain/Repository`
 
-We then read your solution and discuss it with you in a follow-up conversation.
-You will always hear back from us.
+- Commands change data.
+- Queries return DTOs using no-tracking EF Core projections.
+- FluentValidation validates requests.
+- Domain objects enforce business rules.
 
-## Ground rules
+## Potential Improvements
 
-- **Time box.** Each task is scoped to roughly **2 to 4 hours**. Going over that is
-  optional and not expected. A smaller, well-executed solution beats a rushed,
-  complete one.
-- **Scope.** Build the core the task asks for. Do not gold-plate. Each task lists
-  explicitly what you do **not** need to spend time on.
-- **Tools.** Use the languages, frameworks, and libraries stated in your task. Where
-  the task leaves a choice open, pick what you would pick at work and say why.
-- **AI tools.** Using AI assistants is allowed and encouraged. We are interested in
-  *how* you use them, not whether you do. Documenting this is a required deliverable
-  and a significant part of the evaluation (see **AI journey** below).
-- **Purpose.** These tasks exist only to evaluate your work. Nothing you submit is
-  used in our products.
+Given more time, I would consider the following improvements:
 
-## AI journey (required)
+* **Implement Result Pattern and move FluentValidation into the MediatR pipeline:** Keep controllers thinner, cleaner, and easier to read.
+* **Add integration tests:** Verify API endpoints and database interactions.
+* **Handle concurrent user creation:** Prevent duplicate usernames when multiple requests attempt to create users simultaneously.
 
-We work with AI tools every day and we want to see how you do too. Alongside your
-solution, add an `ai-journey/` folder. It weighs significantly in the evaluation, on
-par with the code itself.
+## Testing
 
-Include:
+I created a `test.http` file to manually test all API endpoints implemented in this assessment.
 
-- **The plan.** Any plan file, task breakdown, or agent plan you worked from. If your
-  tool produced one, share it as-is.
-- **The prompts.** The key prompts or instructions you gave, enough for us to follow
-  your thinking. A raw transcript is fine; a curated `prompts.md` is better.
-- **The toolchain.** A list of the AI tools, models, skills, and MCP servers you
-  used, and what each was for.
-- **Your judgment.** A few sentences on where AI helped, where it was wrong or
-  unhelpful, and where you overrode it.
+**File location:** `senior-backend-engineer/src/Web.Api/test.http`
 
-There is no "right" amount of AI. A candidate who leaned on it heavily and one who
-barely touched it can both score well. What we evaluate is the judgment visible in
-how you directed it and checked its output.
-
-## Submitting
-
-Preferred: use the green **"Use this template"** button on this repository to create
-your own copy, solve the task there, and share the link with your contact. A private
-repository with our reviewers invited is fine; a public one is also fine.
-
-No GitHub account? Send a zip of your solution to your contact instead. A zip loses
-your commit history, which is useful signal, so prefer a repository if you can.
-
-Please do **not** open a pull request against this repository. Other candidates would
-be able to see your solution.
-
-## Questions
-
-If anything is unclear, ask early. Reach out to your contact and we will respond
-quickly. A good clarifying question is a positive signal, not a negative one.
+  

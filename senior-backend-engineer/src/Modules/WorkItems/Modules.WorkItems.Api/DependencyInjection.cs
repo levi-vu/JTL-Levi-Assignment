@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Modules.WorkItems.Api.Endpoints;
 using Modules.WorkItems.Application.Abstractions;
-using Modules.WorkItems.Application.Behaviors;
 using Modules.WorkItems.Application.WorkItems.CreateWorkItem;
 using Modules.WorkItems.Infrastructure.Persistence;
 
@@ -21,9 +20,6 @@ public static class DependencyInjection
         services.AddMediatR(options =>
             options.RegisterServicesFromAssemblyContaining<CreateWorkItemCommandHandler>());
 
-        services.AddTransient(
-            typeof(IPipelineBehavior<,>),
-            typeof(ValidationBehavior<,>));
         services.AddScoped<IValidator<CreateWorkItemCommand>, CreateWorkItemCommandValidator>();
         services.AddScoped<IWorkItemRepository, WorkItemRepository>();
         services.AddScoped<IWorkItemQueries, WorkItemQueries>();
