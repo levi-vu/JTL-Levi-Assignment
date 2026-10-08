@@ -1,0 +1,36 @@
+schema: spec-driven
+
+context: |
+  Keep all planning artifacts concise and implementation-focused.
+  Avoid repeating information between proposal, specs, design, and tasks.
+
+rules:
+
+  proposal:
+    - Keep the proposal short.
+    - Use short bullet points.
+    - Do not include implementation details.
+
+  specs:
+    - Keep specs as short as possible.
+    - Describe only externally observable behavior.
+    - Avoid implementation details, architecture discussion, class names, and file names.
+    - Prefer one concise scenario per requirement unless more are necessary.
+    - Do not repeat information already stated in the proposal.
+
+  design:
+    - Keep the design concise.
+    - Focus only on important technical decisions.
+    - Avoid repeating the proposal or specs.
+    - Always include a "Files to Modify" section.
+    - In "Files to Modify", list the exact relative file path whenever it can be determined.
+    - For each file, specify whether it will be added, modified, or deleted.
+    - For each file, explain the intended change in one short sentence.
+    - Do not include code unless necessary to explain an architectural decision.
+
+  tasks:
+    - Keep the implementation plan concise.
+    - Every implementation task must include the exact file path or paths that need to change.
+    - Prefer concrete tasks over generic tasks.
+    - 'Use this format: "- [ ] X.Y `path/to/file` — short description of the change and how to verify it."'
+    - Do not create separate tasks for trivial changes when they can be grouped together.

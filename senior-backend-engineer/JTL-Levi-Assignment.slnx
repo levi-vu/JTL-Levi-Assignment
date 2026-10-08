@@ -16,4 +16,7 @@
     <Project Path="src/Modules/WorkItems/Modules.WorkItems.Domain/Modules.WorkItems.Domain.csproj" />
     <Project Path="src/Modules/WorkItems/Modules.WorkItems.Infrastructure/Modules.WorkItems.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Modules.User.UnitTests/Modules.User.UnitTests.csproj" />
+  </Folder>
 </Solution>

@@ -201,6 +201,13 @@ For changed behavior:
 - add regression tests for bug fixes
 - preserve Architecture Tests that enforce dependency and module boundaries
 
+Test conventions:
+
+- use NUnit for unit tests
+- use NSubstitute for mocking dependencies
+- create the test fixture's mock services together in its constructor
+- use NUnit's instance-per-test-case fixture lifecycle when constructor-created substitutes require isolation
+
 Architecture Tests should catch rules such as:
 
 ```text
