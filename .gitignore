@@ -14,4 +14,33 @@ dist/
 # .NET
 bin/
 obj/
+artifacts/
+publish/
+
+# Visual Studio / Rider
+.vs/
+*.suo
 *.user
+*.userosscache
+*.sln.docstates
+*.rsuser
+*.DotSettings.user
+
+# Build and test output
+TestResults/
+coverage/
+coverage.*
+*.coverage
+*.coveragexml
+
+# NuGet packages and generated package artifacts
+packages/
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+artifacts.json
+
+# .NET tooling
+.fake/
+.ionide/
