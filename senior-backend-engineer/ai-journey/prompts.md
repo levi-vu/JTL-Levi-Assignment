@@ -1,4 +1,4 @@
-\### Feature 1 — User Create and Query
+\# Feature 1 — User Create and Query
 
 $openspec-explore
 
@@ -18,13 +18,17 @@ Requirements:
 
 \- Usernames must be unique case-insensitively, including during concurrent requests.
 
-\- Expose a public UserExistsQuery contract so other modules can verify whether a user exists. 
-- Follow AGENTS.md
+\- Expose a public UserExistsQuery contract so other modules can verify whether a user exists.
+
+\- Follow AGENTS.md
 
 
-### Feature 2 — Work Item Create and Q$openspec-explore
+
+\# Feature 2 - Create and Query WorkItem
 
 
+
+$openspec-explore
 
 Explore how to implement work-item management in the existing C# modular monolith.
 
@@ -43,5 +47,4 @@ Requirements:
 \- Keep WorkItem as an Aggregate Root, referencing User only by ID.
 
 \- Keep module boundaries clean; do not access Users.Domain or Users.Infrastructure directly.
-
 
