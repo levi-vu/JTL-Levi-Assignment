@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Users\Modules.User.Contracts\Modules.User.Contracts.csproj" />
     <ProjectReference Include="..\Modules.WorkItems.Domain\Modules.WorkItems.Domain.csproj" />
   </ItemGroup>
 </Project>

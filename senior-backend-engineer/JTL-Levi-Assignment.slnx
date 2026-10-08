@@ -18,5 +18,6 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Modules.User.UnitTests/Modules.User.UnitTests.csproj" />
+    <Project Path="tests/Modules.WorkItems.UnitTests/Modules.WorkItems.UnitTests.csproj" />
   </Folder>
 </Solution>

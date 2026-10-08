@@ -1,0 +1,75 @@
+@HostAddress = http://localhost:5229
+@MissingUserId = 00000000-0000-0000-0000-000000000099
+
+# Run the create-user request first. Later requests use its returned ID automatically.
+
+### User API: create a user (201 Created)
+# @name createUser
+POST {{HostAddress}}/users
+Content-Type: application/json
+
+{
+  "username": "alice"
+}
+
+### User API: reject a duplicate username (409 Conflict)
+POST {{HostAddress}}/users
+Content-Type: application/json
+
+{
+  "username": "ALICE"
+}
+
+### User API: reject a blank username (400 Bad Request)
+POST {{HostAddress}}/users
+Content-Type: application/json
+
+{
+  "username": "   "
+}
+
+### User API: retrieve the created user (200 OK)
+GET {{HostAddress}}/users/{{createUser.response.body.$.id}}
+Accept: application/json
+
+### User API: retrieve a missing user (404 Not Found)
+GET {{HostAddress}}/users/{{MissingUserId}}
+Accept: application/json
+
+### WorkItem API: create for the existing user (201 Created)
+POST {{HostAddress}}/work-items
+Content-Type: application/json
+
+{
+  "name": "Prepare report",
+  "description": "Summarize quarterly results",
+  "assigneeId": "{{createUser.response.body.$.id}}"
+}
+
+### WorkItem API: reject a blank name (400 Bad Request)
+POST {{HostAddress}}/work-items
+Content-Type: application/json
+
+{
+  "name": "   ",
+  "description": "Invalid work item",
+  "assigneeId": "{{createUser.response.body.$.id}}"
+}
+
+### WorkItem API: reject a missing assignee (404 User not found)
+POST {{HostAddress}}/work-items
+Content-Type: application/json
+
+{
+  "name": "Prepare report",
+  "description": "Missing assignee",
+  "assigneeId": "{{MissingUserId}}"
+}
+
+### WorkItem API: retrieve items for the existing user (200 OK, populated collection)
+GET {{HostAddress}}/work-items?assigneeId={{createUser.response.body.$.id}}
+Accept: application/json
+
+### WorkItem API: retrieve items for a user with no assignments (200 OK, empty collection)
+GET {{HostAddress}}/work-items?assigneeId={{MissingUserId}}
+Accept: application/json

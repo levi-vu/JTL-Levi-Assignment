@@ -1,5 +1,8 @@
 using FastEndpoints;
 using Modules.User.Api;
+using Modules.User.Api.Endpoints;
+using Modules.WorkItems.Api;
+using Modules.WorkItems.Api.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +10,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddUserModule();
+builder.Services.AddWorkItemsModule();
+builder.Services.AddFastEndpoints(options =>
+    options.Assemblies =
+    [
+        typeof(CreateUserEndpoint).Assembly,
+        typeof(CreateWorkItemEndpoint).Assembly
+    ]);
 
 var app = builder.Build();
 
