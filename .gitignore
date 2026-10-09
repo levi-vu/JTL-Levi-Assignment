@@ -44,3 +44,5 @@ artifacts.json
 # .NET tooling
 .fake/
 .ionide/
+
+*.agents
